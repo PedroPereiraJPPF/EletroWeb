@@ -82,11 +82,4 @@ class UsuariosController extends Controller
         $request->session()->regenerateToken();
         return redirect('/');
     }
-    #Grafico
-    public function grafico()
-    {
-        $id = 1;
-        $Usuario = Usuario::findOrFail($id);
-        return view('Usuarios.grafico', ['Usuario' => $Usuario]);
-    }
 }

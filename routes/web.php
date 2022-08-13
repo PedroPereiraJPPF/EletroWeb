@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\UsuariosController;
+use App\Http\Controllers\questõesController;
+use App\Http\Controllers\alternativasController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,23 +19,22 @@ Route::get('/', function () {
     return view('Usuarios.Home');
 })->name('tela inicial');
 //Rotas referentes ao usuario
-Route::get('/Usuario', 'App\Http\Controllers\UsuariosController@create');
-Route::get('/Usuario/grafico', 'App\Http\Controllers\UsuariosController@grafico');
-Route::post('/Usuario', 'App\Http\Controllers\UsuariosController@store')->name('Registrar_Usuario');
-Route::get('/Usuario/Ver', 'App\Http\Controllers\UsuariosController@show');
-Route::get('/Usuario/Editar', 'App\Http\Controllers\UsuariosController@edit');
-Route::post('/Usuario/Editar', 'App\Http\Controllers\UsuariosController@update')->name('Alterar_Usuario');
-Route::get('/Entrar', 'App\Http\Controllers\UsuariosController@enter')->name('fazer login');
-Route::post('/logar', 'App\Http\Controllers\UsuariosController@auth')->name('Entrar');
-Route::get('/logout', 'App\Http\Controllers\UsuariosController@logout');
+Route::get('/Usuario', [UsuariosController::class, 'create']);
+Route::post('/Usuario', [UsuariosController::class, 'store'])->name('Registrar_Usuario');
+Route::get('/Usuario/Ver', [UsuariosController::class, 'show']);
+Route::get('/Usuario/Editar', [UsuariosController::class, 'edit']);
+Route::post('/Usuario/Editar', [UsuariosController::class, 'update'])->name('Alterar_Usuario');
+Route::get('/Entrar', [UsuariosController::class, 'enter'])->name('fazer login');
+Route::post('/logar', [UsuariosController::class, 'auth'])->name('Entrar');
+Route::get('/logout', [UsuariosController::class, 'logout']);
 //Rotas quiz
-Route::get('/Questão', 'App\Http\Controllers\questõesController@create');
-Route::post('/Questão', 'App\Http\Controllers\questõesController@store')->name('Registrar_Questão');
+Route::get('/Questão', [questõesController::class, 'create']);
+Route::post('/Questão', [questõesController::class, 'store'])->name('Registrar_Questão');
 //Rota ver questões
-Route::get('Questão/Ver', 'App\Http\Controllers\questõesController@show');
+Route::get('Questão/Ver', [questõesController::class, 'show']);
 //Rota excluir questões
-Route::get('/Questão/Excluir/{id}', 'App\Http\Controllers\questõesController@delete');
-Route::post('/Questão/Excluir/{id}', 'App\Http\Controllers\questõesController@destroy')->name('excluir_questão');
+Route::get('/Questão/Excluir/{id}', [questõesController::class, 'delete']);
+Route::post('/Questão/Excluir/{id}', [questõesController::class, 'destroy'])->name('excluir_questão');
 //rotas das alternativas
-Route::get('/Alternativa', 'App\Http\Controllers\alternativasController@create')->name('inserir_alternativas');
-Route::post('/Alternativa', 'App\Http\Controllers\alternativasController@store')->name('Registrar_alternativas');
+Route::get('/Alternativa',[alternativasController::class, 'create'])->name('inserir_alternativas');
+Route::post('/Alternativa', [alternativasController::class, 'store'])->name('Registrar_alternativas');
